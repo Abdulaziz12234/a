@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+
+        .success {
+            color: green;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Create Account</h2>
+    <form id="accountForm">
+        <!-- Username Input -->
+        <input type="text" id="username" placeholder="Username" required>
+
+        <!-- Email Input -->
+        <input type="email" id="email" placeholder="Email" required>
+
+        <!-- Password Input -->
+        <input type="password" id="password" placeholder="Password" required>
+
+        <!-- Confirm Password Input -->
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error"></div>
+
+        <button type="submit">Create Account</button>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="success"></div>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById('accountForm');
+    const username = document.getElementById('username');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent form submission for validation
+        
+        // Clear previous messages
+        errorMessage.textContent = '';
+        successMessage.textContent = '';
+
+        // Validate if passwords match
+        if (password.value !== confirmPassword.value) {
+            errorMessage.textContent = "Passwords do not match!";
+            return;
+        }
+
+        // Validate email format (basic)
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!email.value.match(emailPattern)) {
+            errorMessage.textContent = "Please enter a valid email!";
+            return;
+        }
+
+        // Success message
+        successMessage.textContent = "Account successfully created!";
+        form.reset(); // Reset form after submission
+    });
+</script>
+
+</body>
+</html>
