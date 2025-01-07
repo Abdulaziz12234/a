@@ -55,3 +55,11 @@ SELECT RoomNumber, RoomType, Price
 FROM Rooms
 WHERE IsAvailable = TRUE;
 
+SELECT RoomID, RoomNumber, RoomType, Price
+FROM Rooms
+WHERE IsAvailable = TRUE
+  AND RoomID NOT IN (
+    SELECT RoomID
+    FROM Bookings
+    WHERE (CheckInDate <= '2025-01-15' AND CheckOutDate > '2025-01-10')
+  );
