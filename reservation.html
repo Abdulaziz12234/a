@@ -55,52 +55,86 @@
         }
 
         /* Reservation Form */
-        .reservation-form {
-            background-color: white;
-            border-radius: 10px;
-            padding: 40px 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            margin: 50px auto;
+        .reservation-section {
+            padding: 50px 20px;
+            background-color: #fff;
         }
 
-        .reservation-form h2 {
+        .reservation-section h2 {
             font-size: 30px;
             color: #333;
             text-align: center;
             margin-bottom: 20px;
         }
 
-        .reservation-form label {
-            font-size: 16px;
-            color: #555;
-            display: block;
-            margin-bottom: 5px;
+        .filters, .rooms {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-bottom: 30px;
         }
 
-        .reservation-form input, .reservation-form select {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .filters select, .filters input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
             border: 1px solid #ddd;
+        }
+
+        .rooms {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .room-card {
+            padding: 20px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .room-card p {
+            margin: 5px 0;
+        }
+
+        .room-card .price {
+            color: #FF7E5F;
+            font-weight: 600;
+        }
+
+        .room-card button {
+            margin-top: 10px;
+            padding: 10px;
             font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        .reservation-form button {
-            width: 100%;
-            padding: 15px;
             background-color: #FF7E5F;
-            color: white;
-            font-size: 18px;
+            color: #fff;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
         }
 
-        .reservation-form button:hover {
+        .room-card button:hover {
             background-color: #FEB47B;
         }
 
@@ -131,32 +165,20 @@
     <p>Experience comfort</p>
 </header>
 
-<!-- Reservation Form Section -->
-<div class="reservation-form">
-    <h2>Make a Reservation</h2>
-    <form id="booking-form">
-        <label for="room-type">Room Type</label>
-        <select id="room-type" required>
-            <option value="Single Room">$100 - Single Room</option>
-            <option value="Double Room">$150 - Double Room</option>
-            <option value="Suite">$250 - Suite</option>
-        </select>
+<!-- Reservation Section -->
+<section class="reservation-section">
+    <h2>Available Rooms</h2>
 
-        <label for="check-in">Check-in Date</label>
-        <input type="date" id="check-in" required>
+    <div class="filters">
+        <label for="price-range">Max Price:</label>
+        <input type="number" id="price-range" min="100" max="300" placeholder="Enter your budget">
+        <button id="filter-btn">Filter Rooms</button>
+    </div>
 
-        <label for="check-out">Check-out Date</label>
-        <input type="date" id="check-out" required>
-
-        <label for="name">Full Name</label>
-        <input type="text" id="name" placeholder="Enter your full name" required>
-
-        <label for="contact">Contact Info</label>
-        <input type="text" id="contact" placeholder="Enter your contact info" required>
-
-        <button type="submit">Book Now</button>
-    </form>
-</div>
+    <div class="rooms" id="rooms-container">
+        <!-- Rooms will be dynamically inserted here -->
+    </div>
+</section>
 
 <!-- Footer Section -->
 <footer>
@@ -164,17 +186,54 @@
 </footer>
 
 <script>
-    // Form Validation for Reservation Form
-    document.getElementById('booking-form').addEventListener('submit', function(e) {
-        const checkInDate = document.getElementById('check-in').value;
-        const checkOutDate = document.getElementById('check-out').value;
-        
-        if (checkOutDate <= checkInDate) {
-            e.preventDefault(); // Prevent form submission
-            alert("Check-out date must be later than check-in date.");
+    // Sample Data for Rooms
+    const rooms = [
+        { name: "Single Room", price: 100, description: "Cozy room for one person." },
+        { name: "Double Room", price: 150, description: "Spacious room for two people." },
+        { name: "Suite", price: 250, description: "Luxurious suite with all amenities." },
+        { name: "Family Room", price: 300, description: "Comfortable room for a family." }
+    ];
+
+    const roomsContainer = document.getElementById('rooms-container');
+    const filterBtn = document.getElementById('filter-btn');
+    const priceRangeInput = document.getElementById('price-range');
+
+    // Function to Display Rooms
+    function displayRooms(filteredRooms) {
+        roomsContainer.innerHTML = '';
+        if (filteredRooms.length === 0) {
+            roomsContainer.innerHTML = '<p>No rooms available in this price range.</p>';
+            return;
         }
+        filteredRooms.forEach(room => {
+            const roomCard = document.createElement('div');
+            roomCard.classList.add('room-card');
+            roomCard.innerHTML = `
+                <h3>${room.name}</h3>
+                <p>${room.description}</p>
+                <p class="price">$${room.price} per night</p>
+                <button>Book Now</button>
+            `;
+            roomsContainer.appendChild(roomCard);
+        });
+    }
+
+    // Initial Display of All Rooms
+    displayRooms(rooms);
+
+    // Filter Rooms Based on Price
+    filterBtn.addEventListener('click', () => {
+        const maxPrice = parseInt(priceRangeInput.value, 10);
+        if (isNaN(maxPrice) || maxPrice < 100 || maxPrice > 300) {
+            alert('Please enter a valid budget between $100 and $300.');
+            return;
+        }
+        const filteredRooms = rooms.filter(room => room.price <= maxPrice);
+        displayRooms(filteredRooms);
     });
 </script>
 
 </body>
 </html>
+
+      
