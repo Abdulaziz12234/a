@@ -50,3 +50,8 @@ INSERT INTO Users (Name, Email, PasswordHash, Role) VALUES
 INSERT INTO Bookings (UserID, RoomID, CheckInDate, CheckOutDate) VALUES
 (1, 1, '2025-01-10', '2025-01-15'),
 (1, 3, '2025-02-01', '2025-02-05');
+
+SELECT RoomNumber, RoomType, Price
+FROM Rooms
+WHERE IsAvailable = TRUE;
+
