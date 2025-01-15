@@ -1,194 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunset Hotels - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        /* Reset some default styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sunset Hotel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        /* Global Styles */
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-            margin-top: 80px; /* Add space to prevent overlap with the fixed navbar */
-        }
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/superfish.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+	<link rel="icon" href="Initial H Letter Real Estate Logo Design.png" type="image/x-icon">
 
-        /* Navigation Bar */
-        .nav-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background-color: #2f4f4f;
-            color: white;
-            position: fixed; /* Make the navbar fixed */
-            top: 0; /* Keep it at the top of the page */
-            left: 0;
-            width: 100%; /* Ensure it spans the entire width of the page */
-            z-index: 1000; /* Ensure the navbar stays on top of other content */
-        }
+  </head>
+  <body>
+    <div id="fh5co-wrapper">
+      <div id="fh5co-page">
+        <div id="fh5co-header">
+          <header id="fh5co-header-section">
+            <div class="container">
+              <div class="nav-header">
+                <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+				<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+				<h1 id="fh5co-logo"><a href="index.html">Sunset Hotel</a></h1>
+                    
+                  </a>
+                </h1>
+                <nav id="fh5co-menu-wrap" role="navigation">
+                  <ul class="sf-menu" id="fh5co-primary-menu">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="register.html">Register</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </header>
+        </div>
 
-        .nav-bar a {
-            text-decoration: none;
-            color: white;
-            font-size: 18px;
-            margin: 0 20px;
-            padding: 10px;
-            transition: color 0.3s ease;
-        }
+        <div class="fh5co-hero">
+          <div class="fh5co-overlay"></div>
+          <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url(https://cf.bstatic.com/xdata/images/hotel/max1024x768/76526205.jpg?k=92fc8281dd5bad6e06474ba61f01f00a29dcce5470db9af5bd081a9bc41b5ffe&o=&hp=1);">
+            <div class="desc animate-box">
+              <h2>Rooms designed for you</h2>
+              <span><a class="btn btn-primary btn-lg" href="reservation.html">Book now</a></span>
+            </div>
+          </div>
+        </div>
+		
 
-        .nav-bar a:hover {
-            color: #4CAF50; /* Change color on hover */
-        }
+        <div class="fh5co-listing">
+          <div class="container">
+            <div class="row">
+              <!-- First row -->
+              <div class="col-md-4 col-sm-4 fh5co-item-wrap">
+                <a class="fh5co-listing-item" href="reservation.html">
+                  <img src="https://www.amsterdamforesthotel.com/images/rooms/single/single-room-amsterdam-forest-hotel-1.jpg" alt="Single Room" class="img-responsive">
+                  <div class="fh5co-listing-copy">
+                    <h2>Single Room</h2>
+                    <span class="icon">
+                      <i class="icon-chevron-right"></i>
+                    </span>
+                  </div>
+                </a>
+              </div>
 
-        /* Hero Section */
-        .hero-section {
-            position: relative;
-            height: 100vh;
-            background-color: #87CEEB; /* Light blue background */
-            color: white;
-            text-align: center;
-            padding-top: 150px; /* Space at the top for the navbar */
-        }
+              <div class="col-md-4 col-sm-4 fh5co-item-wrap">
+                <a class="fh5co-listing-item" href="reservation.html">
+                  <img src="https://www.twahotel.com/sites/default/files/2019-07/standard-king-large.jpg" alt="Standard Room" class="img-responsive">
+                  <div class="fh5co-listing-copy">
+                    <h2>Standard Room</h2>
+                    <span class="icon">
+                      <i class="icon-chevron-right"></i>
+                    </span>
+                  </div>
+                </a>
+              </div>
 
-        .hero-section h1 {
-            font-size: 60px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
+              <div class="col-md-4 col-sm-4 fh5co-item-wrap">
+                <a class="fh5co-listing-item" href="reservation.html">
+                  <img src="https://www.mulberrynepal.com/wp-content/uploads/2017/04/business-suite-7.jpg" alt="Business Suite" class="img-responsive">
+                  <div class="fh5co-listing-copy">
+                    <h2>Business Suite</h2>
+                    <span class="icon">
+                      <i class="icon-chevron-right"></i>
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </div>
 
-        .hero-section p {
-            font-size: 22px;
-            margin-top: 20px;
-        }
+            <div class="row">
+              <!-- Second row -->
+              <div class="col-md-4 col-sm-4 fh5co-item-wrap">
+                <a class="fh5co-listing-item" href="reservation.html">
+                  <img src="https://cdn.webhotelier.net/photos/w=1920/michel-presfp/L722887.jpg" alt="Junior Suite" class="img-responsive">
+                  <div class="fh5co-listing-copy">
+                    <h2>Junior Suite</h2>
+                    <span class="icon">
+                      <i class="icon-chevron-right"></i>
+                    </span>
+                  </div>
+                </a>
+              </div>
 
-        .hero-section button {
-            margin-top: 30px;
-            padding: 15px 30px;
-            font-size: 18px;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            color: white;
-        }
+              <div class="col-md-4 col-sm-4 fh5co-item-wrap">
+                <a class="fh5co-listing-item" href="reservation.html">
+                  <img src="https://focus.independent.ie/thumbor/501JuQ4mUx2AQD4FnYXHl-5-FoA=/0x17:1700x954/960x640/prod-mh-ireland/0c86e7a0-aa0a-11ed-9c83-0210609a3fe2.jpeg" alt="Family Room" class="img-responsive">
+                  <div class="fh5co-listing-copy">
+                    <h2>Family Room</h2>
+                    <span class="icon">
+                      <i class="icon-chevron-right"></i>
+                    </span>
+                  </div>
+                </a>
+              </div>
 
-        .hero-section button:hover {
-            background-color: #45a049; /* Change background color on hover */
-        }
+              <div class="col-md-4 col-sm-4 fh5co-item-wrap">
+                <a class="fh5co-listing-item" href="reservation.html">
+                  <img src="https://res.cloudinary.com/traveltripperweb/image/upload/c_limit,f_auto,h_2500,q_auto,w_2500/v1580455406/vahre6fc9gt8ygcdmkuu.jpg" alt="Double Room" class="img-responsive">
+                  <div class="fh5co-listing-copy">
+                    <h2>Double Room</h2>
+                    <span class="icon">
+                      <i class="icon-chevron-right"></i>
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        /* Services Section */
-        .services-section {
-            display: flex;
-            justify-content: space-around;
-            padding: 50px 20px;
-            background-color: white;
-        }
+		
 
-        .service {
-            text-align: center;
-            padding: 20px;
-            width: 30%;
-            box-sizing: border-box;
-        }
+        <div class="fh5co-section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 fh5co-news">
+				<h3>Hotel Updates</h3>
+<ul>
+  <li><a href="#top">
+    <span class="fh5co-date">Jan. 5, 2025</span>
+    <h3>Renovated Rooms</h3>
+    <p>We've recently renovated our rooms, featuring modern decor and upgraded amenities. Experience luxury and comfort during your stay!</p>
+  </a></li>
+</ul>
+<ul>
+	<li><a href="#top">
+	  <span class="fh5co-date">Jan. 10, 2025</span>
+	  <h3>Enhanced Health and Safety Measures</h3>
+	  <p>We care about your health! Our hotel has implemented new cleaning and sanitation protocols to ensure your safety during your stay with us.</p>
+	</a></li>
+  </ul>
+				
+              </div>
+              <div class="col-md-6 fh5co-testimonial">
+                <img src="https://img.freepik.com/premium-photo/apartment-renovation-empty-room-before-after-refurbishment-restoration_933790-1511.jpg" alt="Before and after" class="img-responsive mb20">
+                <img src="https://ireward.superghs.com/resource/microtelmonticello/page/safety_measures.jpg" alt="Safety and Health" class="img-responsive">
+              </div>
+            </div>
+          </div>
+        </div>
 
-        .service img {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
-            border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+        <footer>
+          <div id="footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                  <p style="font-size: 14px; line-height: 1.6;">
+                    <a href="#" style="font-size: 18px; font-weight: bold; color: #200d97;">Sunset Hotel</a>
+                    <span style="font-size: 14px; color: #ffffff;">All Rights Reserved.</span><br>
+                    <span style="font-size: 14px; color: #ffffff;">Made by UQU Students</span><br><br>
+                    <span style="font-size: 14px; color: #ffffff;">Contact with us</span><br>
+                    <i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+                    <span style="font-size: 14px; color: #ffffff;"> S444002968@uqu.edu.sa</span>
+					<i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+					<span style="font-size: 14px; color: #ffffff;"> S444008038@uqu.edu.sa </span>
+					<br>
+					<i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+					<span style="font-size: 14px; color: #ffffff;"> S444005537@uqu.edu.sa </span>
+					<i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+					<span style="font-size: 14px; color: #ffffff;"> S444006563@uqu.edu.sa </span>
+					<br>
+					<i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+					<span style="font-size: 14px; color: #ffffff;"> S444007503@uqu.edu.sa</span>
+					
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
 
-        .service h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #4CAF50;
-        }
-
-        .service p {
-            font-size: 16px;
-            color: #555;
-        }
-
-        /* Footer Section */
-        footer {
-            background-color: #2f4f4f;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        footer p {
-            font-size: 14px;
-        }
-
-        footer a {
-            text-decoration: none;
-            color: #4CAF50;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .services-section {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .service {
-                width: 80%;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<!-- Navigation Bar -->
-<div class="nav-bar">
-    <a href="index.html">Home</a>
-    <a href="Register.html">Register</a>
-    <a href="reservation.html">Book Now</a>
-</div>
-
-<!-- Hero Section -->
-<section class="hero-section">
-    <h1>Welcome to Sunset Hotel</h1>
-    <p>Where luxury meets comfort</p>
-    <button onclick="window.location.href='reservation.html'">Book Now</button>
-</section>
-
-<!-- Services Section -->
-<section class="services-section">
-    <div class="service">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNqPjIAjDITX3hEPyGq_RMu74RbsXWvFTPMw&s" alt="Luxurious Room">
-        <h3>Luxurious Rooms</h3>
-        <p>Relax in the best rooms with a scenic view, modern amenities, and exceptional comfort.</p>
+      </div>
     </div>
-    <div class="service">
-        <img src="https://spaseekers.imgix.net/m/0/spa-pool-01.jpg?auto=compress" alt="Relaxing Pool">
-        <h3>Relaxing Pool</h3>
-        <p>Enjoy a peaceful swim or relax by the poolside with refreshing drinks and sunbathing.</p>
-    </div>
-</section>
 
-<!-- Footer Section -->
-<footer>
-    <p>&copy; 2025 Sunset Hotels. All rights reserved. | <a href="contact.html">Contact Us</a></p>
-</footer>
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/jquery.waypoints.min.js"></script>
+    <!-- Stellar -->
+    <script src="js/jquery.stellar.min.js"></script>
+    <!-- Superfish -->
+    <script src="js/hoverIntent.js"></script>
+    <script src="js/superfish.js"></script>
 
-</body>
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+  </body>
 </html>
