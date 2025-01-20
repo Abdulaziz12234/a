@@ -1,4 +1,3 @@
-
 -- استخدام قاعدة البيانات
 USE HotelBookingSystem;
 
@@ -51,10 +50,12 @@ INSERT INTO Bookings (UserID, RoomID, CheckInDate, CheckOutDate) VALUES
 (1, 1, '2025-01-10', '2025-01-15'),
 (1, 3, '2025-02-01', '2025-02-05');
 
+-- عرض الغرف المتاحة فقط
 SELECT RoomNumber, RoomType, Price
 FROM Rooms
 WHERE IsAvailable = TRUE;
 
+-- استعلام للتحقق من الغرف المتاحة لحجز معين
 SELECT RoomID, RoomNumber, RoomType, Price
 FROM Rooms
 WHERE IsAvailable = TRUE
@@ -63,3 +64,78 @@ WHERE IsAvailable = TRUE
     FROM Bookings
     WHERE (CheckInDate <= '2025-01-15' AND CheckOutDate > '2025-01-10')
   );
+
+-- ==============================
+-- وظائف إدارة الحجوزات للمشرف (Admin)
+-- ==============================
+
+-- 1. عرض جميع الحجوزات مع التفاصيل
+SELECT 
+    b.BookingID,
+    u.Name AS CustomerName,
+    u.Email AS CustomerEmail,
+    r.RoomNumber,
+    r.RoomType,
+    r.Price,
+    b.CheckInDate,
+    b.CheckOutDate,
+    b.Status,
+    b.BookingDate
+FROM 
+    Bookings b
+JOIN 
+    Users u ON b.UserID = u.UserID
+JOIN 
+    Rooms r ON b.RoomID = r.RoomID
+ORDER BY 
+    b.BookingDate DESC;
+
+-- 2. إضافة حجز جديد (من قبل المشرف)
+INSERT INTO Bookings (UserID, RoomID, CheckInDate, CheckOutDate, Status)
+VALUES 
+    (1, 2, '2025-03-01', '2025-03-05', 'Confirmed');
+
+-- 3. تحديث حالة الحجز (إلغاء حجز)
+UPDATE Bookings
+SET Status = 'Cancelled'
+WHERE BookingID = 1;
+
+-- 4. حذف حجز معين
+DELETE FROM Bookings
+WHERE BookingID = 2;
+
+-- 5. إجراء مخزن لإضافة حجز جديد مع التحقق من توفر الغرفة
+DELIMITER //
+
+CREATE PROCEDURE AddBooking(
+    IN p_UserID INT,
+    IN p_RoomID INT,
+    IN p_CheckInDate DATE,
+    IN p_CheckOutDate DATE
+)
+BEGIN
+    -- تحقق من توفر الغرفة
+    IF EXISTS (
+        SELECT 1 
+        FROM Rooms 
+        WHERE RoomID = p_RoomID
+          AND IsAvailable = TRUE
+          AND RoomID NOT IN (
+              SELECT RoomID 
+              FROM Bookings 
+              WHERE (CheckInDate <= p_CheckOutDate AND CheckOutDate > p_CheckInDate)
+          )
+    ) THEN
+        -- إدراج الحجز
+        INSERT INTO Bookings (UserID, RoomID, CheckInDate, CheckOutDate, Status)
+        VALUES (p_UserID, p_RoomID, p_CheckInDate, p_CheckOutDate, 'Confirmed');
+    ELSE
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Room is not available for the selected dates.';
+    END IF;
+END //
+
+DELIMITER ;
+
+-- استدعاء الإجراء المخزن لإضافة حجز جديد
+CALL AddBooking(1, 2, '2025-03-10', '2025-03-15');
