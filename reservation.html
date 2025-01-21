@@ -284,7 +284,7 @@
 
         let filteredRooms = rooms;
 
-        if (!isNaN(maxPrice) && maxPrice >= 100 && maxPrice <= 300) {
+        if (!isNaN(maxPrice) && maxPrice >= 0 && maxPrice <= 600) {
             filteredRooms = filteredRooms.filter(room => room.price <= maxPrice);
         }
 
