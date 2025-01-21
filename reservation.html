@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Reservation System</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="Initial H Letter Real Estate Logo Design.png" type="image/x-icon">
+    <h1 id="fh5co-logo"><a href="index.html">Sunset Hotel</a></h1>
+
     <style>
+        
         /* Global Styles */
         body {
             font-family: 'Open Sans', sans-serif;
@@ -54,7 +58,7 @@
             background-color: #FF7E5F;
         }
 
-        /* Reservation Form */
+        /* Reservation Section */
         .reservation-section {
             padding: 50px 20px;
             background-color: #fff;
@@ -67,13 +71,10 @@
             margin-bottom: 20px;
         }
 
-        .filters, .rooms {
+        .filters {
             max-width: 800px;
             margin: 0 auto;
             margin-bottom: 30px;
-        }
-
-        .filters {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -99,6 +100,8 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .room-card {
@@ -106,6 +109,7 @@
             border-radius: 10px;
             background: #fff;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .room-card h3 {
@@ -134,38 +138,17 @@
             transition: background-color 0.3s;
         }
 
-        .room-card button:hover {
-            background-color: #FEB47B;
+        .room-card button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
         }
 
-        /* Booking Form */
-        .booking-form {
-            display: none;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
+        .room-card.available {
+            border-left: 10px solid green;
         }
 
-        .booking-form input, .booking-form button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        .booking-form button {
-            background-color: #FF7E5F;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .booking-form button:hover {
-            background-color: #FEB47B;
+        .room-card.unavailable {
+            border-left: 10px solid red;
         }
 
         /* Footer */
@@ -180,17 +163,13 @@
             margin: 0;
             font-size: 14px;
         }
-        /* Navigation Bar */
-.nav-bar {
-    position: sticky;
-    top: 0;
-    text-align: center;
-    background-color: #2c3e50;
-    padding: 15px;
-    z-index: 10;
-}
-
+        
     </style>
+     <link rel="stylesheet" href="css/animate.css">
+     <link rel="stylesheet" href="css/icomoon.css">
+     <link rel="stylesheet" href="css/bootstrap.css">
+     <link rel="stylesheet" href="css/superfish.css">
+     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -200,21 +179,22 @@
     <a href="Register.html">Register</a>
 </div>
 
-<header>
-    <h1>Sunset Hotel</h1>
-    <p>Experience comfort</p>
-</header>
+
 
 <!-- Reservation Section -->
 <section class="reservation-section">
-    <h2>Available Rooms</h2>
+    <h2>Rooms</h2>
 
     <div class="filters">
         <label for="price-range">Max Price:</label>
         <input type="number" id="price-range" min="100" max="300" placeholder="Enter your budget">
         
-        <label for="room-availability">Room Availability:</label>
-        <input type="number" id="room-availability" placeholder="Enter number of rooms available">
+        <label for="room-availability">Availability:</label>
+        <select id="room-availability">
+            <option value="">All</option>
+            <option value="available">Available</option>
+            <option value="unavailable">Unavailable</option>
+        </select>
         
         <label for="search-bar">Search Rooms:</label>
         <input type="text" id="search-bar" placeholder="Search by room name or description">
@@ -227,82 +207,94 @@
     </div>
 </section>
 
-<!-- Booking Form -->
-<div class="booking-form" id="booking-form">
-    <h3>Complete Your Booking</h3>
-    <input type="text" id="customer-name" placeholder="Enter your name">
-    <input type="email" id="customer-email" placeholder="Enter your email">
-    <label for="check-in-date">Check-in Date:</label>
-    <input type="date" id="check-in-date">
-    <label for="check-out-date">Check-out Date:</label>
-    <input type="date" id="check-out-date">
-    <button id="submit-booking">Confirm Booking</button>
-</div>
-
 <!-- Footer Section -->
 <footer>
-    <p>&copy; 2025 Sunset Hotel. All rights reserved.</p>
-</footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center">
+            <p style="font-size: 14px; line-height: 1.6;">
+              <a href="#" style="font-size: 18px; font-weight: bold; color: #c3c3c3;">Sunset Hotel</a>
+              <span style="font-size: 14px; color: #ffffff;">All Rights Reserved.</span><br>
+              <span style="font-size: 14px; color: #ffffff;">Made by UQU Students</span><br><br>
+              <span style="font-size: 14px; color: #ffffff;">Contact with us</span><br>
+              <i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+              <span style="font-size: 14px; color: #ffffff;"> S444002968@uqu.edu.sa</span>
+              <i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+              <span style="font-size: 14px; color: #ffffff;"> S444008038@uqu.edu.sa </span>
+              <br>
+              <i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+              <span style="font-size: 14px; color: #ffffff;"> S444005537@uqu.edu.sa </span>
+              <i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+              <span style="font-size: 14px; color: #ffffff;"> S444006563@uqu.edu.sa </span>
+              <br>
+              <i class="icon-mail" style="font-size: 16px; color: #ffffff;"> </i>
+              <span style="font-size: 14px; color: #ffffff;"> S444007503@uqu.edu.sa</span>
+              
+            </p>
+          </div>
+        </div>
+      </div>
+  </footer>
 
 <script>
-    // Sample Data for Rooms with availability
     const rooms = [
         { name: "Single Room", price: 100, description: "Cozy room for one person.", available: 10 },
-        { name: "Double Room", price: 150, description: "Spacious room for two people.", available: 4 },
+        { name: "Double Room", price: 150, description: "Spacious room for two people.", available: 0 },
         { name: "Suite", price: 250, description: "Luxurious suite with all amenities.", available: 2 },
-        { name: "Family Room", price: 300, description: "Comfortable room for a family.", available: 3 }
+        { name: "Family Room", price: 300, description: "Comfortable room for a family.", available: 0 }
     ];
 
+    
     const roomsContainer = document.getElementById('rooms-container');
     const filterBtn = document.getElementById('filter-btn');
     const priceRangeInput = document.getElementById('price-range');
     const searchBar = document.getElementById('search-bar');
     const roomAvailabilityInput = document.getElementById('room-availability');
-    const bookingForm = document.getElementById('booking-form');
-    const submitBookingBtn = document.getElementById('submit-booking');
 
-    // Function to Display Rooms
     function displayRooms(filteredRooms) {
         roomsContainer.innerHTML = '';
         if (filteredRooms.length === 0) {
             roomsContainer.innerHTML = '<p>No rooms available based on your search criteria.</p>';
             return;
         }
+
         filteredRooms.forEach(room => {
             const roomCard = document.createElement('div');
             roomCard.classList.add('room-card');
+            roomCard.classList.add(room.available > 0 ? 'available' : 'unavailable');
             roomCard.innerHTML = `
-                <h3>${room.name} (${room.available} available)</h3>
-                <p>${room.description}</p>
-                <p class="price">$${room.price} per night</p>
-                <button onclick="bookRoom('${room.name}', ${room.price}, ${room.available})">Book Now</button>
-            `;
+    <h3>${room.name}</h3>
+    <p>${room.description}</p>
+    <p class="price">$${room.price} per night</p>
+    <button 
+        ${room.available === 0 ? 'disabled' : ''}
+        onclick="window.location.href='book_now.html?room=${encodeURIComponent(room.name)}&price=${room.price}'">
+        ${room.available > 0 ? 'Book Now' : 'Unavailable'}
+    </button>
+`;
+
             roomsContainer.appendChild(roomCard);
         });
     }
 
-    // Initial Display of All Rooms
-    displayRooms(rooms);
-
-    // Filter Rooms Based on Price, Availability, and Search Term
     function filterRooms() {
         const maxPrice = parseInt(priceRangeInput.value, 10);
-        const roomAvailability = parseInt(roomAvailabilityInput.value, 10);
+        const roomAvailability = roomAvailabilityInput.value;
         const searchTerm = searchBar.value.toLowerCase();
 
         let filteredRooms = rooms;
 
-        // Filter by Price
         if (!isNaN(maxPrice) && maxPrice >= 100 && maxPrice <= 300) {
             filteredRooms = filteredRooms.filter(room => room.price <= maxPrice);
         }
 
-        // Filter by Room Availability
-        if (!isNaN(roomAvailability) && roomAvailability > 0) {
-            filteredRooms = filteredRooms.filter(room => room.available === roomAvailability);
+        if (roomAvailability) {
+            filteredRooms = filteredRooms.filter(room => 
+                (roomAvailability === "available" && room.available > 0) ||
+                (roomAvailability === "unavailable" && room.available === 0)
+            );
         }
 
-        // Filter by Search Term (name or description)
         if (searchTerm) {
             filteredRooms = filteredRooms.filter(room => 
                 room.name.toLowerCase().includes(searchTerm) || 
@@ -313,53 +305,14 @@
         displayRooms(filteredRooms);
     }
 
-    // Real-time Search and Filter
     filterBtn.addEventListener('click', filterRooms);
     searchBar.addEventListener('input', filterRooms);
     priceRangeInput.addEventListener('input', filterRooms);
     roomAvailabilityInput.addEventListener('input', filterRooms);
 
-    // Handle Booking
-    function bookRoom(roomName, roomPrice, roomAvailability) {
-        if (roomAvailability === 0) {
-            alert(`Sorry, no rooms are available for ${roomName}.`);
-            return;
-        }
-
-        bookingForm.style.display = 'block';
-
-        submitBookingBtn.onclick = function () {
-            const customerName = document.getElementById('customer-name').value;
-            const customerEmail = document.getElementById('customer-email').value;
-            const checkInDate = document.getElementById('check-in-date').value;
-            const checkOutDate = document.getElementById('check-out-date').value;
-
-            // Error Handling for Booking
-            if (!customerName || !customerEmail || !checkInDate || !checkOutDate) {
-                alert("Please fill in all fields.");
-                return;
-            }
-
-            // Validate Email Format
-            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            if (!emailPattern.test(customerEmail)) {
-                alert("Please enter a valid email address.");
-                return;
-            }
-
-            // Validate Dates
-            const checkInDateObj = new Date(checkInDate);
-            const checkOutDateObj = new Date(checkOutDate);
-            if (checkInDateObj >= checkOutDateObj) {
-                alert("Check-out date must be after check-in date.");
-                return;
-            }
-
-            alert(`Booking Confirmed for ${customerName}.\nRoom: ${roomName}\nPrice: $${roomPrice}\nCheck-in: ${checkInDate}\nCheck-out: ${checkOutDate}`);
-            bookingForm.style.display = 'none';
-        };
-    }
+    displayRooms(rooms);
 </script>
 
+
 </body>
-</html>
+
