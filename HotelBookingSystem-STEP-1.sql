@@ -65,6 +65,54 @@ WHERE IsAvailable = TRUE
     WHERE (CheckInDate <= '2025-01-15' AND CheckOutDate > '2025-01-10')
   );
 
+-- إجراء مخزن لتسجيل الدخول
+DELIMITER //
+
+CREATE PROCEDURE UserLogin(
+    IN p_Email VARCHAR(100),
+    IN p_Password VARCHAR(255),
+    OUT p_Message VARCHAR(255),
+    OUT p_UserID INT,
+    OUT p_Role ENUM('Customer', 'Admin')
+)
+BEGIN
+    -- تحقق من وجود المستخدم بالبريد الإلكتروني وكلمة المرور
+    DECLARE hashedPassword VARCHAR(255);
+    
+    SET hashedPassword = SHA2(p_Password, 256); -- تشفير كلمة المرور المقدمة
+
+    SELECT 
+        UserID, Role 
+    INTO 
+        p_UserID, p_Role
+    FROM 
+        Users
+    WHERE 
+        Email = p_Email AND PasswordHash = hashedPassword;
+
+    -- التحقق إذا لم يتم العثور على المستخدم
+    IF p_UserID IS NULL THEN
+        SET p_Message = 'Invalid email or password.';
+    ELSE
+        SET p_Message = 'Login successful.';
+    END IF;
+END //
+
+DELIMITER ;
+
+-- استدعاء الإجراء المخزن لتسجيل الدخول
+CALL UserLogin(
+    'john@example.com', -- البريد الإلكتروني
+    'password123',      -- كلمة المرور
+    @loginMessage,      -- الرسالة الناتجة
+    @userID,            -- معرف المستخدم الناتج
+    @userRole           -- دور المستخدم الناتج
+);
+
+-- عرض النتيجة
+SELECT @loginMessage AS Message, @userID AS UserID, @userRole AS Role;
+
+
 -- ==============================
 -- وظائف إدارة الحجوزات للمشرف (Admin)
 -- ==============================
