@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="Initial H Letter Real Estate Logo Design.png" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px;
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a90e2;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: #6a8bfc;
+            color: white;
+        }
+
+        .nav-buttons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+            outline: none;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #32cd32;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #228b22;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #room-details {
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .back-button {
+            background-color: #e63946;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            width: auto;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav-buttons">
+        <a href="index.html">Home</a>
+    </div>
+
+    <h2>Room Booking</h2>
+
+    <p id="room-details"></p>
+
+    <form id="booking-form">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="check-in">Check-In Date:</label>
+        <input type="date" id="check-in" name="check-in" required>
+
+        <label for="check-out">Check-Out Date:</label>
+        <input type="date" id="check-out" name="check-out" required>
+
+        <div class="button-container">
+            <button type="submit">Confirm Booking</button>
+            <a href="reservation.html" class="back-button">Back</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomName = urlParams.get('room');
+
+    const roomDetails = document.getElementById('room-details');
+    roomDetails.textContent = roomName 
+        ? `You are booking the "${roomName}" room.` 
+        : "No room selected. Please go back and choose a room.";
+
+    const checkInInput = document.getElementById('check-in');
+    const checkOutInput = document.getElementById('check-out');
+
+    const today = new Date().toISOString().split('T')[0];
+    checkInInput.min = today;
+    checkOutInput.min = today;
+
+    checkInInput.addEventListener('change', () => {
+        checkOutInput.min = checkInInput.value;
+    });
+
+    document.getElementById('booking-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const checkInDate = new Date(checkInInput.value);
+        const checkOutDate = new Date(checkOutInput.value);
+
+        if (checkOutDate <= checkInDate) {
+            alert('Check-Out date must be after Check-In date.');
+            return;
+        }
+
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            checkIn: checkInInput.value,
+            checkOut: checkOutInput.value,
+            room: roomName,
+        };
+
+        alert(`Booking confirmed for ${formData.name} in the "${formData.room}" room from ${formData.checkIn} to ${formData.checkOut}.`);
+    });
+</script>
+</body>
+</html>
