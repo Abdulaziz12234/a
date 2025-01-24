@@ -1,25 +1,83 @@
-# Hotel Booking System
+# Hotel Reservation System
 
-## Overview
+A simple and interactive hotel reservation system built with PHP, MySQL, HTML, CSS, and JavaScript. This project allows users to browse available rooms, filter them based on price or availability, and book a room.
 
-The Hotel Booking System allows users to register, log in, make reservations, and manage their stay. The system includes HTML pages for user interaction, Java for backend functionality, and SQL to handle the database. 
+---
 
 ## Features
 
-- **User Registration**: Users can register via `Register.html`.
-- **User Login**: Users can log in via the `Login.html` page.
-- **Reservation System**: Users can book rooms via `reservation.html`.
-- **Checkout Process**: Handles checkout logic with `CheckoutP.java`.
-- **Database Setup**: SQL file to initialize the required tables for the hotel booking system.
+- **User Authentication:** Registration and login system with secure session handling.
+- **Room Management:** Display rooms with descriptions, prices, and availability.
+- **Filtering:** Filter rooms by price, availability, and keywords.
+- **Booking System:** Users can reserve available rooms directly.
+- **Responsive Design:** The website is optimized for various screen sizes.
 
-## How to Run
+---
 
-1. **Set up the database**: Run the `HotelBookingSystem-STEP-1.sql` script to initialize the database on your SQL server.
-2. **Host the HTML files**: Upload the `index.html`, `Register.html`, `Login.html`, and `reservation.html` to your web server or open them locally.
-3. **Java Backend**: Compile and run `CheckoutP.java` to handle the checkout process.
+## Project Structure
 
-## Requirements
+The project includes the following key files and directories:
 
-- Java (for backend logic)
-- SQL Server (for database)
-- A web server or local environment to host HTML files
+- ``: Main page displaying rooms and filters.
+- ``: User registration and login page.
+- ``: Handles booking functionality.
+- ``: Log out functionality for users.
+- ``: Contains the styling files.
+- ``: MySQL dump file for setting up the database.
+
+---
+
+## Installation
+
+### Requirements
+
+- A local server environment (e.g., **XAMPP**, **MAMP**, **WAMP**).
+- PHP 7.4 or higher.
+- MySQL database server.
+
+### Steps
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Abdulaziz12234/a.git
+   ```
+2. **Move files to your server**: Place the files in the `htdocs` folder (if using XAMPP).
+3. **Start XAMPP**:
+   - Start Apache and MySQL from the XAMPP Control Panel.
+4. **Import the database**:
+   - Open phpMyAdmin (`http://localhost/phpmyadmin`).
+   - Create a new database named `reg`.
+   - Import the `reg.sql` file into the `reg` database.
+5. **Access the website**: Open your browser and go to:
+   ```
+   http://localhost/a
+   ```
+
+---
+
+## Database Structure
+
+The `reg.sql` file creates the following tables:
+
+1. ``:
+   - `id`: Primary key.
+   - `Username`: Stores the username.
+   - `Email`: Stores the email address.
+   - `Password`: Stores the hashed password.
+2. ``:
+   - `id`: Primary key.
+   - `name`: Room name.
+   - `price`: Room price per night.
+   - `description`: Room description.
+   - `available`: Room availability (1 for available, 0 for unavailable).
+
+---
+
+## How to Use
+
+1. Visit the homepage.
+2. Log in or register if you're a new user.
+3. Browse rooms and use filters to refine your search.
+4. Click on "Book Now" to reserve a room.
+
+
