@@ -1,189 +1,60 @@
 -- استخدام قاعدة البيانات
-USE HotelBookingSystem;
+USE reg;
 
--- إنشاء جدول المستخدمين (Users)
-CREATE TABLE Users (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100) NOT NULL,
-    Email VARCHAR(100) UNIQUE NOT NULL,
-    PasswordHash VARCHAR(255) NOT NULL,
-    Role ENUM('Customer', 'Admin') DEFAULT 'Customer',
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+CREATE TABLE `bookings` (
+  `id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `room_name` varchar(100) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `check_in` date NOT NULL,
+  `check_out` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- إنشاء جدول الغرف (Rooms)
-CREATE TABLE Rooms (
-    RoomID INT AUTO_INCREMENT PRIMARY KEY,
-    RoomNumber VARCHAR(10) UNIQUE NOT NULL,
-    RoomType ENUM('Single', 'Double', 'Suite') NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL,
-    IsAvailable BOOLEAN DEFAULT TRUE
-);
+INSERT INTO `bookings` (`id`, `username`, `room_name`, `price`, `check_in`, `check_out`) VALUES
+(3, 'a', 'Single Room', 100.00, '1919-12-19', '1919-12-19'),
+(4, 'a', 'Single Room', 100.00, '1512-10-20', '0000-00-00'),
+(5, 'a', 'Single Room', 100.00, '1512-10-20', '0000-00-00'),
+(6, 'a', 'Single Room', 100.00, '4121-02-19', '5121-12-14'),
+(11, 'a', 'Business Suite', 150.00, '8888-08-08', '8888-08-08');
 
--- إنشاء جدول الحجوزات (Bookings)
-CREATE TABLE Bookings (
-    BookingID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT NOT NULL,
-    RoomID INT NOT NULL,
-    CheckInDate DATE NOT NULL,
-    CheckOutDate DATE NOT NULL,
-    BookingDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Status ENUM('Confirmed', 'Cancelled') DEFAULT 'Confirmed',
-    FOREIGN KEY (UserID) REFERENCES Users(UserID),
-    FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
-);
+CREATE TABLE `registration` (
+  `id` int(11) NOT NULL,
+  `Username` varchar(100) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- إضافة بيانات افتراضية إلى جدول الغرف
-INSERT INTO Rooms (RoomNumber, RoomType, Price, IsAvailable) VALUES
-('101', 'Single', 100.00, TRUE),
-('102', 'Double', 150.00, TRUE),
-('201', 'Suite', 300.00, TRUE),
-('202', 'Suite', 350.00, FALSE);
+INSERT INTO `registration` (`id`, `Username`, `Email`, `Password`) VALUES
+(1, 'a', 'a@example.com', 'password123'),
+(2, 'b', 'b@example.com', 'password456');
 
--- إضافة مستخدمين افتراضيين
-INSERT INTO Users (Name, Email, PasswordHash, Role) VALUES
-('John Doe', 'john@example.com', SHA2('password123', 256), 'Customer'),
-('Admin User', 'admin@example.com', SHA2('adminpass', 256), 'Admin');
+CREATE TABLE `rooms` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `description` text NOT NULL,
+  `available` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- إضافة بيانات افتراضية إلى جدول الحجوزات
-INSERT INTO Bookings (UserID, RoomID, CheckInDate, CheckOutDate) VALUES
-(1, 1, '2025-01-10', '2025-01-15'),
-(1, 3, '2025-02-01', '2025-02-05');
+INSERT INTO `rooms` (`id`, `name`, `price`, `description`, `available`) VALUES
+(1, 'Single Room', 100.00, 'A cozy single room.', 5),
+(2, 'Double Room', 200.00, 'A spacious double room.', 3),
+(3, 'Business Suite', 300.00, 'A luxurious business suite.', 2);
 
--- عرض الغرف المتاحة فقط
-SELECT RoomNumber, RoomType, Price
-FROM Rooms
-WHERE IsAvailable = TRUE;
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`id`);
 
--- استعلام للتحقق من الغرف المتاحة لحجز معين
-SELECT RoomID, RoomNumber, RoomType, Price
-FROM Rooms
-WHERE IsAvailable = TRUE
-  AND RoomID NOT IN (
-    SELECT RoomID
-    FROM Bookings
-    WHERE (CheckInDate <= '2025-01-15' AND CheckOutDate > '2025-01-10')
-  );
+ALTER TABLE `registration`
+  ADD PRIMARY KEY (`id`);
 
--- إجراء مخزن لتسجيل الدخول
-DELIMITER //
+ALTER TABLE `rooms`
+  ADD PRIMARY KEY (`id`);
 
-CREATE PROCEDURE UserLogin(
-    IN p_Email VARCHAR(100),
-    IN p_Password VARCHAR(255),
-    OUT p_Message VARCHAR(255),
-    OUT p_UserID INT,
-    OUT p_Role ENUM('Customer', 'Admin')
-)
-BEGIN
-    -- تحقق من وجود المستخدم بالبريد الإلكتروني وكلمة المرور
-    DECLARE hashedPassword VARCHAR(255);
-    
-    SET hashedPassword = SHA2(p_Password, 256); -- تشفير كلمة المرور المقدمة
+ALTER TABLE `bookings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
-    SELECT 
-        UserID, Role 
-    INTO 
-        p_UserID, p_Role
-    FROM 
-        Users
-    WHERE 
-        Email = p_Email AND PasswordHash = hashedPassword;
+ALTER TABLE `registration`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
-    -- التحقق إذا لم يتم العثور على المستخدم
-    IF p_UserID IS NULL THEN
-        SET p_Message = 'Invalid email or password.';
-    ELSE
-        SET p_Message = 'Login successful.';
-    END IF;
-END //
-
-DELIMITER ;
-
--- استدعاء الإجراء المخزن لتسجيل الدخول
-CALL UserLogin(
-    'john@example.com', -- البريد الإلكتروني
-    'password123',      -- كلمة المرور
-    @loginMessage,      -- الرسالة الناتجة
-    @userID,            -- معرف المستخدم الناتج
-    @userRole           -- دور المستخدم الناتج
-);
-
--- عرض النتيجة
-SELECT @loginMessage AS Message, @userID AS UserID, @userRole AS Role;
-
-
--- ==============================
--- وظائف إدارة الحجوزات للمشرف (Admin)
--- ==============================
-
--- 1. عرض جميع الحجوزات مع التفاصيل
-SELECT 
-    b.BookingID,
-    u.Name AS CustomerName,
-    u.Email AS CustomerEmail,
-    r.RoomNumber,
-    r.RoomType,
-    r.Price,
-    b.CheckInDate,
-    b.CheckOutDate,
-    b.Status,
-    b.BookingDate
-FROM 
-    Bookings b
-JOIN 
-    Users u ON b.UserID = u.UserID
-JOIN 
-    Rooms r ON b.RoomID = r.RoomID
-ORDER BY 
-    b.BookingDate DESC;
-
--- 2. إضافة حجز جديد (من قبل المشرف)
-INSERT INTO Bookings (UserID, RoomID, CheckInDate, CheckOutDate, Status)
-VALUES 
-    (1, 2, '2025-03-01', '2025-03-05', 'Confirmed');
-
--- 3. تحديث حالة الحجز (إلغاء حجز)
-UPDATE Bookings
-SET Status = 'Cancelled'
-WHERE BookingID = 1;
-
--- 4. حذف حجز معين
-DELETE FROM Bookings
-WHERE BookingID = 2;
-
--- 5. إجراء مخزن لإضافة حجز جديد مع التحقق من توفر الغرفة
-DELIMITER //
-
-CREATE PROCEDURE AddBooking(
-    IN p_UserID INT,
-    IN p_RoomID INT,
-    IN p_CheckInDate DATE,
-    IN p_CheckOutDate DATE
-)
-BEGIN
-    -- تحقق من توفر الغرفة
-    IF EXISTS (
-        SELECT 1 
-        FROM Rooms 
-        WHERE RoomID = p_RoomID
-          AND IsAvailable = TRUE
-          AND RoomID NOT IN (
-              SELECT RoomID 
-              FROM Bookings 
-              WHERE (CheckInDate <= p_CheckOutDate AND CheckOutDate > p_CheckInDate)
-          )
-    ) THEN
-        -- إدراج الحجز
-        INSERT INTO Bookings (UserID, RoomID, CheckInDate, CheckOutDate, Status)
-        VALUES (p_UserID, p_RoomID, p_CheckInDate, p_CheckOutDate, 'Confirmed');
-    ELSE
-        SIGNAL SQLSTATE '45000' 
-        SET MESSAGE_TEXT = 'Room is not available for the selected dates.';
-    END IF;
-END //
-
-DELIMITER ;
-
--- استدعاء الإجراء المخزن لإضافة حجز جديد
-CALL AddBooking(1, 2, '2025-03-10', '2025-03-15');
+ALTER TABLE `rooms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
