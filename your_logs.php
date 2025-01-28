@@ -198,7 +198,7 @@ if (isset($_GET['delete_id'])) {
     </style>
 </head>
 <body>
-    <h2>Your Bookings (الكود بوضع التجربة!)</h2>
+    <h2>Your Bookings </h2>
     
     <div class="filter-container">
         <button class="filter-button" onclick="toggleSort()">Sort</button>
