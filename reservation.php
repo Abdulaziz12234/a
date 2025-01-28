@@ -330,7 +330,7 @@ $conn->close();
         roomCard.innerHTML = `
             <h3>${room.name}</h3>
             <p>${room.description}</p>
-            <p class="price">SR ${room.price} per night</p>
+            <p class="price">SAR ${room.price} per night</p>
             <button 
                 ${room.available <= 0 ? 'disabled' : ''} 
                 onclick="window.location.href='book_now.php?room=${encodeURIComponent(room.name)}&price=${room.price}'">
